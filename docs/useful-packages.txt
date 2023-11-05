@@ -1,0 +1,3 @@
+# https://www.npmjs.com/package/rpi-ws281x-native
+
+npm install rpi-ws281x-native
