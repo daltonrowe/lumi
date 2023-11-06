@@ -2,7 +2,7 @@ const os = require("os");
 
 const hookUrl =
   "https://discordapp.com/api/webhooks/1170788550820769875/aV6H5kiwfZTUWS0ZDFrRlZATzuiAdkoVchcu0R9egiUBzeNwx1XRYfcEzcQLf0MZ2_af";
-const hookInterval = 15 * 60 * 1000;
+const hookInterval = 2 * 60 * 60 * 1000;
 const checkResolution = 1000;
 let lastRun = Date.now();
 
