@@ -1,0 +1,19 @@
+[Unit]
+Description=Lumi Endurance Run
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/node /home/runlights/lumi/src/entry/pinger.js
+Restart=always
+RestartSec=10
+
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=lumi-pinger-service
+Environment=
+
+User=runlights
+
+[Install]
+WantedBy=multi-user.target

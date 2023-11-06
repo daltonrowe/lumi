@@ -1,0 +1,15 @@
+# create service
+
+sudo nano /lib/systemd/system/<service_name>.service
+
+# reload
+
+sudo systemctl daemon-reload
+
+# start service
+
+sudo systemctl start lumi-lights
+
+# enable at boot
+
+sudo systemtl enable lumi-lights

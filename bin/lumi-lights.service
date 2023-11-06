@@ -1,0 +1,18 @@
+[Unit]
+Description=Lumi Endurance Run
+
+[Service]
+ExecStart=/usr/bin/node /home/runlights/lumi/src/entry/lights.js
+Restart=always
+RestartSec=10
+
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=lumi-lights-service
+Environment=
+
+User=root
+
+[Install]
+WantedBy=multi-user.target

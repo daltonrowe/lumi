@@ -10,7 +10,9 @@ function sendMessage() {
   const body = {
     username: "Lumi Endurance Run",
     avatar_url: "",
-    content: `${os.uptime()}s uptime | ${os.freemem()} freemem | ${os.loadavg()} loadavg `,
+    content: `${Math.round(os.uptime() / 60)}m uptime | ${Math.round(
+      os.freemem() / 1000 / 1000
+    )} freemem | ${os.loadavg()[2]} loadavg `,
   };
 
   fetch(hookUrl, {
@@ -22,9 +24,11 @@ function sendMessage() {
   });
 }
 
+sendMessage();
+
 setInterval(() => {
   const now = Date.now();
-  const since =  now - lastRun;
+  const since = now - lastRun;
   const shouldRun = since > hookInterval;
 
   if (shouldRun) {
