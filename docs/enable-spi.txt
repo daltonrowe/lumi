@@ -1,0 +1,8 @@
+# enable spi
+
+dtparam=spi=on
+
+# set gpu clock for spi
+
+sudo nano /boot/config.txt
+core_freq=250

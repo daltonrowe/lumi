@@ -3,7 +3,7 @@ const ws281x = require("rpi-ws281x-native");
 const interval = 100;
 let counter = 0;
 
-const channel = ws281x(60, { stripType: "ws2812", brightness: 10 });
+const channel = ws281x(60, { stripType: "ws2812", brightness: 10, gpio: 10 });
 const colorArray = channel.array;
 
 function getColor(num) {
