@@ -1,4 +1,4 @@
-const Effect = require("../effects/KnightRiderEffect");
+const Effect = require("../effects/RGBStrobeEffect");
 const ws281x = require("rpi-ws281x-native");
 
 const interval = 100;

@@ -39,7 +39,7 @@
     </style>
 
     <!-- Update effect class to import here -->
-    <script src="../effects/KnightRiderEffect.js"></script>
+    <script src="../effects/RGBStrobeEffect.js"></script>
   </head>
   <body>
     <div id="leds"></div>
@@ -48,7 +48,7 @@
       const numLeds = 60;
       const colorArray = Array(numLeds).fill(0xff0000);
       const leds = document.querySelector("#leds");
-      const interval = 10;
+      const interval = 100;
 
       function render() {
         let ledMarkup = "";
@@ -62,7 +62,7 @@
         leds.innerHTML = ledMarkup;
       }
 
-      const effect = new KnightRiderEffect(colorArray);
+      const effect = new RGBStrobeEffect(colorArray);
 
       setInterval(() => {
         effect.compute();
