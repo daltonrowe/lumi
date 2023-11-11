@@ -12,4 +12,4 @@ sudo systemctl start lumi-lights
 
 # enable at boot
 
-sudo systemtl enable lumi-lights
+sudo systemctl enable lumi-lights
