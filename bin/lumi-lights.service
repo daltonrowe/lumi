@@ -2,7 +2,7 @@
 Description=Lumi Endurance Run
 
 [Service]
-ExecStart=/usr/bin/node /usr/local/lumi/src/entry/lights.js
+ExecStart=/usr/local/bin/node /usr/local/lumi/src/entry/lights.js
 Restart=always
 RestartSec=10
 
