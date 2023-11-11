@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #leds {
+        display: flex;
+      }
+
+      .led {
+        width: calc(100 / var(--numLeds) * 1%);
+        height: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="leds"></div>
+
+    <script>
+      const numLeds = 60;
+      const colorArray = Array(numLeds).fill(0xff0000);
+      const leds = document.querySelector("#leds");
+      const interval = 1000;
+
+      leds.style.setProperty("--numLeds", numLeds);
+
+      function render() {
+        let ledMarkup = "";
+
+        colorArray.forEach((hexNum) => {
+          const hexStr = hexNum.toString(16);
+          const hexColor = hexStr.padStart(6, "0");
+          ledMarkup += `<div class="led" style="background:#${hexColor};"></div>`;
+        });
+
+        leds.innerHTML = ledMarkup;
+      }
+
+      let counter = 0;
+
+      function getColor(num) {
+        switch (num) {
+          case 0:
+            return 0xff0000;
+
+          case 1:
+            return 0x00ff00;
+
+          case 2:
+            return 0x0000ff;
+
+          default:
+            return 0xffcc22;
+        }
+      }
+
+      function updateColor(color) {
+        for (let i = 0; i < numLeds; i++) {
+          colorArray[i] = color;
+        }
+      }
+
+      setInterval(() => {
+        if (counter >= 3) counter = 0;
+
+        const color = getColor(counter);
+        updateColor(color);
+
+        render();
+
+        counter++;
+      }, interval);
+    </script>
+  </body>
+</html>
