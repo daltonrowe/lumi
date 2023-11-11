@@ -3,19 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>LED Effect Tester</title>
 
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        height: 100vh;
+
+        padding: 20px;
+        margin: 0;
+
         background: #222;
       }
 
       #leds {
         display: flex;
         flex: 0 0 100%;
+        gap: 2px;
+
         width: 500px;
         height: 10px;
       }
@@ -25,6 +37,9 @@
         height: 100%;
       }
     </style>
+
+    <!-- Update effect class to import here -->
+    <script src="../effects/KnightRiderEffect.js"></script>
   </head>
   <body>
     <div id="leds"></div>
@@ -33,7 +48,7 @@
       const numLeds = 60;
       const colorArray = Array(numLeds).fill(0xff0000);
       const leds = document.querySelector("#leds");
-      const interval = 150;
+      const interval = 10;
 
       function render() {
         let ledMarkup = "";
@@ -47,50 +62,7 @@
         leds.innerHTML = ledMarkup;
       }
 
-      class LedEffect {
-        counter = 0;
-        numLeds = 0;
-        colorArray = undefined;
-
-        constructor(colorArray) {
-          this.colorArray = colorArray;
-          this.numLeds = colorArray.length;
-        }
-
-        getColor() {
-          switch (this.counter) {
-            case 0:
-              return 0xff0000;
-
-            case 1:
-              return 0x00ff00;
-
-            case 2:
-              return 0x0000ff;
-
-            default:
-              return 0xffcc22;
-          }
-        }
-
-        update() {
-          for (let i = 0; i < this.numLeds; i++) {
-            this.colorArray[i] = this.getColor();
-          }
-        }
-
-        count() {
-          this.counter >= 2 ? (this.counter = 0) : this.counter++;
-        }
-
-        compute() {
-          this.update();
-          this.count();
-          return this.colorArray;
-        }
-      }
-
-      const effect = new LedEffect(colorArray);
+      const effect = new KnightRiderEffect(colorArray);
 
       setInterval(() => {
         effect.compute();
