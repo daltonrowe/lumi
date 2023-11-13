@@ -1,3 +1,8 @@
 # https://www.npmjs.com/package/rpi-ws281x-native
 
 npm install rpi-ws281x-native
+
+# https://www.npmjs.com/package/mfrc522-rpi
+# https://github.com/firsttris/mfrc522-rpi
+
+npm install mfrc522-rpi
