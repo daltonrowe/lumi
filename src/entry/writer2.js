@@ -1,6 +1,7 @@
 "use strict";
 const Mfrc522 = require("mfrc522-rpi");
 const SoftSPI = require("rpi-softspi");
+const { toHex, fromHex } = require("../lib/encode");
 
 //# This loop keeps checking for chips. If one is near it will get the UID and authenticate
 console.log("scanning...");
@@ -14,9 +15,7 @@ const softSPI = new SoftSPI({
   client: 24, // pin number of CS
 });
 
-// GPIO 24 can be used for buzzer bin (PIN 18), Reset pin is (PIN 22).
-// I believe that channing pattern is better for configuring pins which are optional methods to use.
-const mfrc522 = new Mfrc522(softSPI).setResetPin(22).setBuzzerPin(18);
+const mfrc522 = new Mfrc522(softSPI).setResetPin(22);
 
 setInterval(function () {
   //# reset card
@@ -59,31 +58,29 @@ setInterval(function () {
     return;
   }
 
-  //# Variable for the data to write
-  let data = [
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff, 0xff,
-  ];
-
-  console.log("Block 8 looked like this:");
+  console.log("Read current data:");
   console.log(mfrc522.getDataForBlock(8));
 
-  console.log("Block 8 will be filled with 0xFF:");
-  mfrc522.writeDataToBlock(8, data);
-
-  console.log("Now Block 8 looks like this:");
-  console.log(mfrc522.getDataForBlock(8));
-
-  data = [
+  const resetData = [
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00,
   ];
 
-  console.log("Now we fill it with 16 x 0");
-  mfrc522.writeDataToBlock(8, data);
+  console.log("Reset data with 16 x 0");
+  mfrc522.writeDataToBlock(8, resetData);
 
-  console.log("It is now empty:");
+  console.log("Read data after reset:");
   console.log(mfrc522.getDataForBlock(8));
+
+  console.log("Now set our custom data");
+  mfrc522.writeDataToBlock(8, toHex("pizza"));
+
+  const newData = mfrc522.getDataForBlock(8);
+  console.log("Read data after write:");
+  console.log(newData);
+
+  console.log("Decode data:");
+  console.log(fromHex(newData));
 
   mfrc522.stopCrypto();
 
