@@ -1,0 +1,26 @@
+export function toHex(s) {
+  var h = [];
+  for (var i = 0; i < s.length; i++) {
+    const hexStr = s.charCodeAt(i).toString(16);
+    h.push(parseInt(`0x${hexStr}`, 16));
+  }
+
+  return h;
+}
+
+export function fromHex(h) {
+  var s = "";
+  for (var i = 0; i < h.length; i += 1) {
+    hexNum = h[i];
+    s += String.fromCharCode(hexNum);
+  }
+  return decodeURIComponent(s);
+}
+
+const text = "pizza";
+const encoded = toHex(text);
+const decoded = fromHex(encoded);
+
+console.log(text);
+console.log(encoded);
+console.log(decoded);
