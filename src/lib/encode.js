@@ -1,4 +1,4 @@
-export function toHex(s) {
+function toHex(s) {
   var h = [];
   for (var i = 0; i < s.length; i++) {
     const hexStr = s.charCodeAt(i).toString(16);
@@ -8,7 +8,7 @@ export function toHex(s) {
   return h;
 }
 
-export function fromHex(h) {
+function fromHex(h) {
   var s = "";
   for (var i = 0; i < h.length; i += 1) {
     hexNum = h[i];
@@ -24,3 +24,8 @@ const decoded = fromHex(encoded);
 console.log(text);
 console.log(encoded);
 console.log(decoded);
+
+module.exports = {
+  toHex,
+  fromHex,
+};
