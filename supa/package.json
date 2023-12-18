@@ -1,0 +1,14 @@
+{
+  "name": "lumi_db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "new_function": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "supabase": "^1.123.4"
+  }
+}
