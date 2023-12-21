@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "new_function": "echo \"Error: no test specified\" && exit 1"
+    "functions:deploy": "",
+    "gen:types": "supabase gen types typescript --linked > database.types.ts"
   },
   "author": "",
   "license": "ISC",
