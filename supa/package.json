@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "functions:deploy": "",
     "gen:types": "supabase gen types typescript --linked > database.types.ts"
   },
   "author": "",
