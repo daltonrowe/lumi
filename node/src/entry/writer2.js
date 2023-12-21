@@ -1,7 +1,7 @@
 "use strict";
 const Mfrc522 = require("mfrc522-rpi");
 const SoftSPI = require("rpi-softspi");
-const { toHex, fromHex } = require("../lib/encode");
+const { toHex, fromHex } = require("../util/encode");
 
 //# This loop keeps checking for chips. If one is near it will get the UID and authenticate
 console.log("scanning...");

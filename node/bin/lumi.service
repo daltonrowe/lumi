@@ -1,0 +1,20 @@
+[Unit]
+Description=Lumi Endurance Run
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/node /usr/local/lumi/src/index.js
+Restart=always
+RestartSec=10
+
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=lumi-service
+Environment=
+
+User=root
+
+[Install]
+WantedBy=multi-user.target
