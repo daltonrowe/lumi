@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="test">Test</button>
+
+    <script>
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
+
+      async function testFunction() {
+        const response = await fetch(
+          "http://localhost:54321/functions/v1/node_online",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              node_code: "PIZZA",
+            }),
+          }
+        );
+        console.log("res", response);
+
+        const responseJson = await response.json();
+        console.log("json", responseJson);
+      }
+
+      document.querySelector("#test").addEventListener("click", testFunction);
+    </script>
+  </body>
+</html>
