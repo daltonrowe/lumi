@@ -17,14 +17,6 @@ function fromHex(h) {
   return decodeURIComponent(s);
 }
 
-const text = "pizza";
-const encoded = toHex(text);
-const decoded = fromHex(encoded);
-
-console.log(text);
-console.log(encoded);
-console.log(decoded);
-
 module.exports = {
   toHex,
   fromHex,
