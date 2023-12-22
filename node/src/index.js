@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { sendNodeOnline } = require("./util/sendNodeOnline");
 
+sendNodeOnline();
+
 const tasks = [
   {
     last: Date.now(),

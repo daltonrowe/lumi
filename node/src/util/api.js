@@ -1,22 +1,15 @@
-const fetch = require("node-fetch");
+const { createClient } = require("@supabase/supabase-js");
 
-async function api(endpoint, method, data) {
-  const { API_URL, API_ANON_KEY } = process.env;
+const supabase = createClient(process.env.API_URL, process.env.API_KEY);
 
-  console.log(API_ANON_KEY);
-  console.log(data);
-
-  const response = await fetch(`${API_URL}/functions/${endpoint}`, {
-    method,
-    body: JSON.stringify(data),
-    headers: {
-      Authorization: `Bearer ${API_ANON_KEY}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+async function api(endpoint, body) {
+  const { data, error } = await supabase.functions.invoke(endpoint, {
+    body,
   });
 
-  return response;
+  if (error) console.log(error);
+
+  return data;
 }
 
 module.exports = {
