@@ -1,4 +1,4 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.1";
 import { corsHeaders } from "../_shared/cors.ts";
 import { Database } from "../_shared/database.types.ts";
 
@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
 
     // node was found, updated is last alive time
 
-    if (selectData.length >= 1) {
+    if (selectData.length === 1) {
       const { data: updateData, error: updateError } = await supabaseAdmin
         .from("nodes_v1")
         .update({ updated_at: new Date().toISOString() })
@@ -36,21 +36,9 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
+    } else {
+      throw new Error("Node not found.");
     }
-
-    // node was not found, create it
-
-    const { data: insertData, error: insertError } = await supabaseAdmin
-      .from("nodes_v1")
-      .insert({ code })
-      .select();
-
-    if (insertError) throw insertError;
-
-    return new Response(JSON.stringify(insertData), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

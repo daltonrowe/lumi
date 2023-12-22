@@ -4,7 +4,7 @@ const { getSerial } = require("./getSerial");
 async function sendNodeOnline() {
   const code = await getSerial();
 
-  await api("v1/node_online", "POST", {
+  const response = await api("v1/node_online", "POST", {
     code,
   });
 }

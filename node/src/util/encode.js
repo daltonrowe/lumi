@@ -1,6 +1,6 @@
 function toHex(s) {
-  var h = [];
-  for (var i = 0; i < s.length; i++) {
+  const h = [];
+  for (let i = 0; i < s.length; i++) {
     const hexStr = s.charCodeAt(i).toString(16);
     h.push(parseInt(`0x${hexStr}`, 16));
   }
@@ -9,8 +9,8 @@ function toHex(s) {
 }
 
 function fromHex(h) {
-  var s = "";
-  for (var i = 0; i < h.length; i += 1) {
+  let s = "";
+  for (let i = 0; i < h.length; i += 1) {
     hexNum = h[i];
     s += String.fromCharCode(hexNum);
   }
