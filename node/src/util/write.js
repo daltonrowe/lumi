@@ -21,10 +21,7 @@ function writeCard(writeDataHex, callback) {
   console.log(`Card detected.`);
 
   response = mfrc522.getUid();
-  if (!response.status) {
-    console.log("UID Scan Error");
-    return;
-  }
+  if (!response.status) return;
 
   const uid = response.data;
   const uidString = [
