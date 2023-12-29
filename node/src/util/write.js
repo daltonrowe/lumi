@@ -18,10 +18,13 @@ function writeCard(writeDataHex, callback) {
   let response = mfrc522.findCard();
   if (!response.status) return;
 
-  console.log(`Card detected.`);
+  console.log("Card detected!");
 
   response = mfrc522.getUid();
-  if (!response.status) return;
+  if (!response.status) {
+    console.log("UID Read Error.");
+    return;
+  }
 
   const uid = response.data;
   const uidString = [

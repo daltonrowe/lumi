@@ -19,7 +19,8 @@ const tasks = [
     every: 100,
     run: () => {
       readCard((readResponse) => {
-        console.log(readResponse);
+        const { readData } = readResponse;
+        console.log(readData);
       });
     },
   },
