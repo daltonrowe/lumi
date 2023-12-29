@@ -16,9 +16,6 @@ function writeCard(writeDataHex, callback) {
   mfrc522.reset();
 
   let response = mfrc522.findCard();
-
-  // no card was found, try again
-  console.log("Scanning...");
   if (!response.status) return;
 
   console.log(`Card detected.`);
