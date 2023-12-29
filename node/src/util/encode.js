@@ -12,7 +12,8 @@ function fromHex(h) {
   let s = "";
   for (let i = 0; i < h.length; i += 1) {
     hexNum = h[i];
-    s += String.fromCharCode(hexNum);
+
+    if (hexNum !== 0) s += String.fromCharCode(hexNum);
   }
   return decodeURIComponent(s);
 }

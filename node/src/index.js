@@ -6,6 +6,7 @@ sendNodeOnline();
 
 const tasks = [
   {
+    name: "Ping Lumi DB",
     last: Date.now(),
     every: process.env.NODE_PING,
     run: () => {
@@ -13,8 +14,9 @@ const tasks = [
     },
   },
   {
+    name: "Scan Card",
     last: Date.now(),
-    every: 500,
+    every: 100,
     run: () => {
       readCard((readResponse) => {
         console.log(readResponse);
