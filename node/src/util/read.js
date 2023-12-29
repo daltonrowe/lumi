@@ -1,4 +1,4 @@
-const { toHex, fromHex } = require("./encode");
+const { fromHex } = require("./encode");
 
 const Mfrc522 = require("mfrc522-rpi");
 const SoftSPI = require("rpi-softspi");
@@ -12,7 +12,7 @@ const softSPI = new SoftSPI({
 
 const mfrc522 = new Mfrc522(softSPI).setResetPin(22);
 
-function writeCard(writeDataHex, callback) {
+function readCard(callback) {
   mfrc522.reset();
 
   let response = mfrc522.findCard();
@@ -46,9 +46,6 @@ function writeCard(writeDataHex, callback) {
     return;
   }
 
-  // write new data
-  mfrc522.writeDataToBlock(8, writeDataHex);
-
   // read data
   const readDataHex = mfrc522.getDataForBlock(8);
   const readData = fromHex(readDataHex);
@@ -62,22 +59,15 @@ function writeCard(writeDataHex, callback) {
   });
 }
 
-function startWriteSession(team, cardId, callback) {
-  if (cardId.length > 14) {
-    console.error(`writeData too long: ${cardId}`);
-    return;
-  }
-
-  const writeData = `${team}-${cardId}`;
-  const writeDataHex = toHex(writeData);
-
-  const writeInterval = setInterval(() => {
-    writeCard(writeDataHex, callback);
+function startReadSession(callback) {
+  const readInterval = setInterval(() => {
+    readCard(callback);
   }, 500);
 
-  return writeInterval;
+  return readInterval;
 }
 
 module.exports = {
-  startWriteSession,
+  readCard,
+  startReadSession,
 };

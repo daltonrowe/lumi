@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { sendNodeOnline } = require("./util/sendNodeOnline");
+const { readCard } = require("./util/read");
 
 sendNodeOnline();
 
@@ -9,6 +10,15 @@ const tasks = [
     every: process.env.NODE_PING,
     run: () => {
       sendNodeOnline();
+    },
+  },
+  {
+    last: Date.now(),
+    every: 500,
+    run: () => {
+      readCard((readResponse) => {
+        console.log(readResponse);
+      });
     },
   },
 ];
@@ -23,4 +33,4 @@ setInterval(() => {
       task.run();
     }
   });
-}, 500);
+}, 100);
