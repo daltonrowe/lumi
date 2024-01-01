@@ -31,6 +31,7 @@ class Game {
 
   endScanDebounce() {
     clearInterval(this.debounceInterval);
+    this.debounceInterval = null;
 
     const scans = [...this.debounceScans];
     this.debounceScans = [];

@@ -3,9 +3,9 @@ const { fillArray } = require("../util/fillArray");
 
 class Lights {
   teamColors = {
-    A: 0x00ffff,
-    B: 0xff00ff,
-    C: 0xffff00,
+    A: 0x0000ff,
+    B: 0xff0000,
+    C: 0x00ff00,
   };
 
   constructor() {
@@ -16,7 +16,7 @@ class Lights {
   }
 
   setDefaultColor() {
-    fillArray(this.colorArray, 0x00ff00);
+    fillArray(this.colorArray, 0x555555);
     this.ws281x.render();
   }
 
