@@ -8,7 +8,7 @@ const Mfrc522 = require("mfrc522-rpi");
 
 const ledChannel = ws281x(60, {
   stripType: "ws2812",
-  brightness: 10,
+  brightness: 50,
 });
 
 const colorArray = ledChannel.array;
@@ -24,10 +24,25 @@ const softSPI = new SoftSPI({
 
 const mfrc522 = new Mfrc522(softSPI).setResetPin(22);
 
-module.exports = {
+const Provider = {
   ws281x,
   ledChannel,
   colorArray,
   softSPI,
   mfrc522,
+  lights: null,
+  game: null,
+};
+
+function getProvider() {
+  return Provider;
+}
+
+function register(name, content) {
+  Provider[name] = content;
+}
+
+module.exports = {
+  getProvider,
+  register,
 };

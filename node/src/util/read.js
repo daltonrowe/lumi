@@ -1,13 +1,12 @@
 const { fromHex } = require("./encode");
-const { mfrc522 } = require("../class/Provider.js");
+const { getProvider } = require("../class/Provider.js");
 
 function readCard(callback) {
+  const { mfrc522 } = getProvider();
   mfrc522.reset();
 
   let response = mfrc522.findCard();
   if (!response.status) return;
-
-  console.log("Card Detected!");
 
   response = mfrc522.getUid();
   if (!response.status) {

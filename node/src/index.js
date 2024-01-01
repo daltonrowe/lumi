@@ -1,8 +1,19 @@
 require("dotenv").config();
-require("./class/Provider");
+const { getProvider, register } = require("./class/Provider");
 
 const { sendNodeOnline } = require("./util/sendNodeOnline");
 const { readCard } = require("./util/read");
+
+const { Lights } = require("./class/Lights");
+const { Game } = require("./class/Game");
+
+register("lights", new Lights());
+register("game", new Game());
+
+const { game } = getProvider();
+const { lights } = getProvider();
+
+lights.setDefaultColor();
 
 sendNodeOnline();
 
@@ -22,7 +33,7 @@ const tasks = [
     run: () => {
       readCard((readResponse) => {
         const { readData } = readResponse;
-        console.log(readData);
+        game.handleScan(readData);
       });
     },
   },

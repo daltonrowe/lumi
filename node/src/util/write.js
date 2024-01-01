@@ -1,7 +1,8 @@
 const { toHex, fromHex } = require("./encode");
-const { mfrc522 } = require("../class/Provider.js");
+const { getProvider } = require("../class/Provider.js");
 
 function writeCard(writeDataHex, callback) {
+  const { mfrc522 } = getProvider();
   mfrc522.reset();
 
   let response = mfrc522.findCard();
