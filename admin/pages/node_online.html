@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>node_online</title>
   </head>
   <body>
     <span>Node Code:</span>
@@ -14,9 +14,10 @@
     <script>
       const ANON_KEY = window.Cookies.get("anon_key");
       const API_HOST = window.Cookies.get("api_host");
-      const CODE_INPUT = document.querySelector("#code").value;
 
       async function testFunction() {
+        const CODE_INPUT = document.querySelector("#code").value;
+
         const response = await fetch(`${API_HOST}/functions/v1/node_online`, {
           method: "POST",
           headers: {
