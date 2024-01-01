@@ -1,7 +1,7 @@
 "use strict";
+
 const Mfrc522 = require("mfrc522-rpi");
 const SoftSPI = require("rpi-softspi");
-const { toHex, fromHex } = require("../util/encode");
 
 //# This loop keeps checking for chips. If one is near it will get the UID and authenticate
 console.log("scanning...");
@@ -73,14 +73,11 @@ setInterval(function () {
   console.log(mfrc522.getDataForBlock(8));
 
   console.log("Now set our custom data");
-  mfrc522.writeDataToBlock(8, toHex("pizza"));
+  mfrc522.writeDataToBlock(8, [0x01, 0x02, 0x03, 0x04]);
 
   const newData = mfrc522.getDataForBlock(8);
   console.log("Read data after write:");
   console.log(newData);
-
-  console.log("Decode data:");
-  console.log(fromHex(newData));
 
   mfrc522.stopCrypto();
 
