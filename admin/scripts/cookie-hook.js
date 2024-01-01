@@ -24,9 +24,10 @@ function handleSet(event) {
   const { target } = event;
   const hook = target.dataset.cookieHook;
 
-  const input = document.querySelector(`input[data-cookie-action="${hook}"]`);
+  const input = document.querySelector(`input[data-cookie-hook="${hook}"]`);
   const { value } = input;
 
+  console.log(hook, value);
   Cookies.set(hook, value);
 }
 
@@ -46,6 +47,7 @@ function handleReset(event) {
   const { target } = event;
   const hook = target.dataset.cookieHook;
 
+  console.log("reset", hook);
   Cookies.remove(hook);
 }
 
