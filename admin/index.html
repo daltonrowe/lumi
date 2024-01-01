@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumi Admin Dashboard</title>
+  </head>
+  <body>
+    <h1>Lumi Admin Dashboard</h1>
+
+    <h2>Pages</h2>
+    <ul>
+      <li>
+        <a href="pages/node_online.html">node_online</a>
+      </li>
+    </ul>
+
+    <h2>Admin Env</h2>
+    <ul>
+      <li>
+        <span>api_host</span>
+        <input
+          type="text"
+          value="localhost:54321"
+          data-cookie-hook="api_host"
+        />
+        <button data-cookie-hook="api_host" data-cookie-action="set">
+          Set
+        </button>
+        <button data-cookie-hook="api_host" data-cookie-action="reset">
+          Reset
+        </button>
+      </li>
+    </ul>
+
+    <script src="scripts/js-cookie.js"></script>
+    <script src="scripts/cookie-hook.js"></script>
+  </body>
+</html>

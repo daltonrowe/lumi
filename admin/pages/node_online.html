@@ -6,7 +6,9 @@
     <title>Document</title>
   </head>
   <body>
-    <button id="test">Test</button>
+    <span>Node Code:</span>
+    <input type="text" id="code" value="ohyeah" />
+    <button id="test">Test node_online</button>
 
     <script>
       const SUPABASE_ANON_KEY =
@@ -23,7 +25,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              code: "oh yeah",
+              code: document.querySelect("#code").value,
             }),
           }
         );
