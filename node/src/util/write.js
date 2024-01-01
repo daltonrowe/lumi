@@ -1,16 +1,5 @@
 const { toHex, fromHex } = require("./encode");
-
-const Mfrc522 = require("mfrc522-rpi");
-const SoftSPI = require("rpi-softspi");
-
-const softSPI = new SoftSPI({
-  clock: 23, // SCLK
-  mosi: 19, // MOSI
-  miso: 21, // MISO
-  client: 24, // CS
-});
-
-const mfrc522 = new Mfrc522(softSPI).setResetPin(22);
+const { mfrc522 } = require("../class/Provider.js");
 
 function writeCard(writeDataHex, callback) {
   mfrc522.reset();
