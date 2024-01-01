@@ -10,25 +10,25 @@
     <input type="text" id="code" value="ohyeah" />
     <button id="test">Test node_online</button>
 
+    <script src="../scripts/js-cookie.js"></script>
     <script>
-      const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
+      const ANON_KEY = window.Cookies.get("anon_key");
+      const API_HOST = window.Cookies.get("api_host");
+      const CODE_INPUT = document.querySelector("#code").value;
 
       async function testFunction() {
-        const response = await fetch(
-          "http://localhost:54321/functions/v1/node_online",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              code: document.querySelect("#code").value,
-            }),
-          }
-        );
+        const response = await fetch(`${API_HOST}/functions/v1/node_online`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${ANON_KEY}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            code: CODE_INPUT,
+          }),
+        });
+
         console.log("res", response);
 
         const responseJson = await response.json();

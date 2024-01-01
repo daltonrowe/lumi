@@ -2,12 +2,14 @@ const Cookies = window.Cookies;
 
 // Replace values on input elements
 
-const cookieHookInputs = document.querySelector("input[data-cookie-hook]");
+const cookieHookInputs = document.querySelectorAll("input[data-cookie-hook]");
 
-Array(cookieHookInputs).forEach((el) => {
-  if (!el) return;
+console.log(cookieHookInputs);
 
+cookieHookInputs.forEach((el) => {
   const hook = el.dataset.cookieHook;
+  console.log(hook);
+
   const value = Cookies.get(hook);
   if (!value) return;
 
@@ -16,7 +18,7 @@ Array(cookieHookInputs).forEach((el) => {
 
 // Set values from inputs
 
-const cookieHookSetters = document.querySelector(
+const cookieHookSetters = document.querySelectorAll(
   'button[data-cookie-action="set"]'
 );
 
@@ -27,19 +29,17 @@ function handleSet(event) {
   const input = document.querySelector(`input[data-cookie-hook="${hook}"]`);
   const { value } = input;
 
-  console.log(hook, value);
+  console.log("set", hook, value);
   Cookies.set(hook, value);
 }
 
-Array(cookieHookSetters).forEach((el) => {
-  if (!el) return;
-
+cookieHookSetters.forEach((el) => {
   el.addEventListener("click", handleSet);
 });
 
 // Delete and reset values
 
-const cookieHookResetters = document.querySelector(
+const cookieHookResetters = document.querySelectorAll(
   'button[data-cookie-action="reset"]'
 );
 
@@ -51,8 +51,6 @@ function handleReset(event) {
   Cookies.remove(hook);
 }
 
-Array(cookieHookResetters).forEach((el) => {
-  if (!el) return;
-
+cookieHookResetters.forEach((el) => {
   el.addEventListener("click", handleReset);
 });
