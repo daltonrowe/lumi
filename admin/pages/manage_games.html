@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Games</title>
+  </head>
+  <body>
+    <span>Node Code:</span>
+    <input type="text" id="code" value="ohyeah" />
+    <button id="test">Test node_online</button>
+
+    <script src="../scripts/js-cookie.js"></script>
+    <script>
+      const ANON_KEY = window.Cookies.get("anon_key");
+      const API_HOST = window.Cookies.get("api_host");
+
+      async function testFunction() {
+        const CODE_INPUT = document.querySelector("#code").value;
+
+        const response = await fetch(`${API_HOST}/functions/v1/node_online`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${ANON_KEY}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            code: CODE_INPUT,
+          }),
+        });
+
+        console.log("res", response);
+
+        const responseJson = await response.json();
+        console.log("json", responseJson);
+      }
+
+      document.querySelector("#test").addEventListener("click", testFunction);
+    </script>
+  </body>
+</html>
