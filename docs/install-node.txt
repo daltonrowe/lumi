@@ -1,0 +1,32 @@
+### Install Node via NVM ###
+
+# install script
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+
+# reload bash path
+
+source ~/.bashrc
+
+# install a node version
+
+nvm install 12
+
+# link node for use by root
+
+sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/node" "/usr/local/bin/node"
+sudo ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/npm" "/usr/local/bin/npm"
+
+### Install Node Direct ###
+
+sudo apt install -y ca-certificates curl gnupg
+
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/nodesource.gpg
+
+NODE_MAJOR=12
+
+echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+
+sudo apt update
+
+sudo apt install nodejs
