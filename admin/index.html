@@ -32,12 +32,12 @@
         <input
           type="text"
           value="http://localhost:54321"
-          data-cookie-hook="api_host"
+          data-storage-hook="api_host"
         />
-        <button data-cookie-hook="api_host" data-cookie-action="set">
+        <button data-storage-hook="api_host" data-storage-action="set">
           Set
         </button>
-        <button data-cookie-hook="api_host" data-cookie-action="reset">
+        <button data-storage-hook="api_host" data-storage-action="reset">
           Reset
         </button>
       </li>
@@ -47,18 +47,17 @@
         <input
           type="text"
           value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6cmx2ZnZubXBrbmxhZXdwaXJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI4NjAyMDgsImV4cCI6MjAxODQzNjIwOH0.zt26QiyaQIyzUtyswRN84IHo1eVzhbBuu1i8aYV6YYg"
-          data-cookie-hook="anon_key"
+          data-storage-hook="anon_key"
         />
-        <button data-cookie-hook="anon_key" data-cookie-action="set">
+        <button data-storage-hook="anon_key" data-storage-action="set">
           Set
         </button>
-        <button data-cookie-hook="anon_key" data-cookie-action="reset">
+        <button data-storage-hook="anon_key" data-storage-action="reset">
           Reset
         </button>
       </li>
     </ul>
 
-    <script src="scripts/js-cookie.js"></script>
-    <script src="scripts/cookie-hook.js"></script>
+    <script src="scripts/storage-hook.js"></script>
   </body>
 </html>

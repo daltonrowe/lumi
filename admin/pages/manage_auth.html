@@ -10,12 +10,11 @@
 
     <!-- log in -->
 
-    <script src="../scripts/js-cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      const ANON_KEY = window.Cookies.get("anon_key");
-      const API_HOST = window.Cookies.get("api_host");
+      const ANON_KEY = localStorage.getItem("anon_key");
+      const API_HOST = localStorage.getItem("api_host");
 
       // do auth
     </script>
