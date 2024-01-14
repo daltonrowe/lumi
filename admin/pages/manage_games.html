@@ -6,36 +6,61 @@
     <title>Manage Games</title>
   </head>
   <body>
-    <span>Node Code:</span>
-    <input type="text" id="code" value="ohyeah" />
-    <button id="test">Test node_online</button>
+    <div id="create-game">
+      <input type="text" id="create-game-name-input" />
+      <input type="text" id="create-game-desc-input" />
+      <button id="create-game-submit">Create</button>
+    </div>
+
+    <button id="list-games">List Games</button>
+    <div id="games-list"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
       const ANON_KEY = localStorage.getItem("anon_key");
       const API_HOST = localStorage.getItem("api_host");
 
-      async function testFunction() {
-        const CODE_INPUT = document.querySelector("#code").value;
+      const { createClient } = window.supabase;
 
-        const response = await fetch(`${API_HOST}/functions/v1/node_online`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${ANON_KEY}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            code: CODE_INPUT,
-          }),
-        });
+      const supabase = createClient(API_HOST, ANON_KEY);
 
-        console.log("res", response);
+      const createGameNameInput = document.querySelector(
+        "#create-game-name-input"
+      );
+      const createGameDescInput = document.querySelector(
+        "#create-game-desc-input"
+      );
+      const createGameSubmit = document.querySelector("#create-game-submit");
 
-        const responseJson = await response.json();
-        console.log("json", responseJson);
-      }
+      createGameSubmit.addEventListener("click", async () => {
+        const authToken = JSON.parse(
+          localStorage.getItem("sb-localhost-auth-token")
+        );
+        const name = createGameNameInput.value;
+        const desc = createGameDescInput.value;
 
-      document.querySelector("#test").addEventListener("click", testFunction);
+        const { error } = await supabase
+          .from("games_v1")
+          .insert({ name, desc });
+      });
+
+      const listGamesButton = document.querySelector("#list-games");
+      const gamesList = document.querySelector("#games-list");
+      listGamesButton.addEventListener("click", async () => {
+        const { data, error } = await supabase.from("games_v1").select();
+        console.log(data, error);
+
+        if (Array.isArray(data)) {
+          data.forEach((row) => {
+            const game = document.createElement("DIV");
+            game.textContent = `${row.name} - ${row.desc}`;
+            game.dataset.id = row.id;
+
+            gamesList.appendChild(game);
+          });
+        }
+      });
     </script>
   </body>
 </html>

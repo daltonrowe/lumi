@@ -6,9 +6,17 @@
     <title>Manage Auth</title>
   </head>
   <body>
-    <!-- sign up -->
+    <div id="signup">
+      <input type="text" id="signup-email" />
+      <input type="password" id="signup-password" />
+      <button id="signup-submit">Submit</button>
+    </div>
 
-    <!-- log in -->
+    <div id="login">
+      <input type="text" id="login-email" />
+      <input type="password" id="login-password" />
+      <button id="login-submit">Submit</button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -16,7 +24,35 @@
       const ANON_KEY = localStorage.getItem("anon_key");
       const API_HOST = localStorage.getItem("api_host");
 
-      // do auth
+      const { createClient } = window.supabase;
+
+      const supabase = createClient(API_HOST, ANON_KEY);
+
+      const signUpButton = document.querySelector("#signup-submit");
+      const signUpEmailInput = document.querySelector("#signup-email");
+      const signUpPasswordInput = document.querySelector("#signup-password");
+
+      signUpButton.addEventListener("click", async (event) => {
+        const { data, error } = await supabase.auth.signUp({
+          email: signUpEmailInput.value,
+          password: signUpPasswordInput.value,
+        });
+
+        console.log(data, error);
+      });
+
+      const logInButton = document.querySelector("#login-submit");
+      const logInEmailInput = document.querySelector("#login-email");
+      const logInPasswordInput = document.querySelector("#login-password");
+
+      logInButton.addEventListener("click", async (event) => {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: logInEmailInput.value,
+          password: logInPasswordInput.value,
+        });
+
+        console.log(data, error);
+      });
     </script>
   </body>
 </html>
