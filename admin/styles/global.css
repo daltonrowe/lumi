@@ -1,0 +1,11 @@
+.flex {
+  display: flex;
+}
+
+.split {
+  flex: 0 0 50%;
+}
+
+label {
+  display: block;
+}

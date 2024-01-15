@@ -4,63 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Games</title>
+    <link rel="stylesheet" href="../styles/global.css" />
   </head>
   <body>
     <div id="create-game">
       <input type="text" id="create-game-name-input" />
       <input type="text" id="create-game-desc-input" />
-      <button id="create-game-submit">Create</button>
+      <button id="create-game-submit">Create Game</button>
     </div>
 
     <button id="list-games">List Games</button>
-    <div id="games-list"></div>
+    <button id="list-nodes">List Nodes</button>
+    <div class="flex">
+      <div id="games-list" class="split"></div>
+      <div id="nodes-list" class="split"></div>
+    </div>
+
+    <button id="assign-nodes">Assign Nodes to Game</button>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script>
-      const ANON_KEY = localStorage.getItem("anon_key");
-      const API_HOST = localStorage.getItem("api_host");
-
-      const { createClient } = window.supabase;
-
-      const supabase = createClient(API_HOST, ANON_KEY);
-
-      const createGameNameInput = document.querySelector(
-        "#create-game-name-input"
-      );
-      const createGameDescInput = document.querySelector(
-        "#create-game-desc-input"
-      );
-      const createGameSubmit = document.querySelector("#create-game-submit");
-
-      createGameSubmit.addEventListener("click", async () => {
-        const authToken = JSON.parse(
-          localStorage.getItem("sb-localhost-auth-token")
-        );
-        const name = createGameNameInput.value;
-        const desc = createGameDescInput.value;
-
-        const { error } = await supabase
-          .from("games_v1")
-          .insert({ name, desc });
-      });
-
-      const listGamesButton = document.querySelector("#list-games");
-      const gamesList = document.querySelector("#games-list");
-      listGamesButton.addEventListener("click", async () => {
-        const { data, error } = await supabase.from("games_v1").select();
-        console.log(data, error);
-
-        if (Array.isArray(data)) {
-          data.forEach((row) => {
-            const game = document.createElement("DIV");
-            game.textContent = `${row.name} - ${row.desc}`;
-            game.dataset.id = row.id;
-
-            gamesList.appendChild(game);
-          });
-        }
-      });
-    </script>
+    <script src="./manage_games.js"></script>
   </body>
 </html>
