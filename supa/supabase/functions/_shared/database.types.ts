@@ -41,7 +41,7 @@ export interface Database {
           enabled: boolean | null
           id: number
           name: string
-          owner: string | null
+          owner: string
         }
         Insert: {
           created_at?: string
@@ -49,7 +49,7 @@ export interface Database {
           enabled?: boolean | null
           id?: number
           name?: string
-          owner?: string | null
+          owner?: string
         }
         Update: {
           created_at?: string
@@ -57,7 +57,7 @@ export interface Database {
           enabled?: boolean | null
           id?: number
           name?: string
-          owner?: string | null
+          owner?: string
         }
         Relationships: [
           {
@@ -109,25 +109,25 @@ export interface Database {
       }
       scans_v1: {
         Row: {
+          card_id: string
           created_at: string
           game: number | null
           id: number
           node_code: string
-          tag: string
         }
         Insert: {
+          card_id: string
           created_at?: string
           game?: number | null
           id?: number
           node_code?: string
-          tag: string
         }
         Update: {
+          card_id?: string
           created_at?: string
           game?: number | null
           id?: number
           node_code?: string
-          tag?: string
         }
         Relationships: [
           {

@@ -12,27 +12,30 @@ Deno.serve(async (req) => {
   const supabaseAdmin = createClient<Database>(SUPABASE_URL, SERVICE_ROLE_KEY);
 
   try {
-    const { code } = await req.json();
+    const { code, cardId } = await req.json();
 
     const { data: selectData, error: selectError } = await supabaseAdmin
       .from("nodes_v1")
-      .select("code,id")
+      .select("code,id,game")
       .eq("code", code);
 
     if (selectError) throw selectError;
 
     // node was found, updated is last alive time
 
-    if (selectData.length === 1) {
-      const { data: updateData, error: updateError } = await supabaseAdmin
-        .from("nodes_v1")
-        .update({ updated_at: new Date().toISOString() })
-        .eq("id", selectData[0].id)
+    if (
+      selectData.length === 1 &&
+      selectData[0].game &&
+      typeof cardId === "string"
+    ) {
+      const { data: insertData, error: insertError } = await supabaseAdmin
+        .from("scans_v1")
+        .insert({ card_id: cardId, node_code: code, game: selectData[0].game })
         .select();
 
-      if (updateError) throw updateError;
+      if (insertError) throw insertError;
 
-      return new Response(JSON.stringify(updateData), {
+      return new Response(JSON.stringify(insertData), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
