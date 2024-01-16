@@ -12,7 +12,12 @@ Deno.serve(async (req) => {
   const supabaseAdmin = createClient<Database>(SUPABASE_URL, SERVICE_ROLE_KEY);
 
   try {
-    const { code, cardId } = await req.json();
+    const { code, readData } = await req.json();
+
+    if (typeof readData !== "string") throw new Error("Card ID not valid");
+    if (readData.indexOf("-") !== 1) throw new Error("Card ID not valid");
+
+    const [team, cardId] = readData.split("-");
 
     const { data: selectData, error: selectError } = await supabaseAdmin
       .from("nodes_v1")
@@ -30,7 +35,12 @@ Deno.serve(async (req) => {
     ) {
       const { data: insertData, error: insertError } = await supabaseAdmin
         .from("scans_v1")
-        .insert({ card_id: cardId, node_code: code, game: selectData[0].game })
+        .insert({
+          team,
+          card_id: cardId,
+          node_code: code,
+          game: selectData[0].game,
+        })
         .select();
 
       if (insertError) throw insertError;
