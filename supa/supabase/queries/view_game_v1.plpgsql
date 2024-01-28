@@ -1,0 +1,26 @@
+-- return current capture status of all nodes for a game
+
+DROP FUNCTION view_game_v1(bigint);
+CREATE FUNCTION view_game_v1(game_id bigint)
+  RETURNS TABLE (
+    id bigint, 
+    team text, 
+    card_id text,
+    node_code varchar,
+    created_at timestamptz
+  )
+  LANGUAGE plpgsql AS
+$func$
+BEGIN
+   RETURN QUERY
+   SELECT DISTINCT ON (scans_v1.node_code)
+    scans_v1.id,
+    scans_v1.team,
+    scans_v1.card_id,
+    scans_v1.node_code,
+    scans_v1.created_at
+   FROM scans_v1
+   WHERE game = game_id
+   ORDER BY scans_v1.node_code, scans_v1.created_at DESC;
+END
+$func$;
