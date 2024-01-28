@@ -1,0 +1,4 @@
+// start node running
+
+cd node
+sudo node src/index.js
