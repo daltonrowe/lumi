@@ -1,0 +1,2 @@
+- Send to endpoint from Node
+- Listen instead of poll from Dash
