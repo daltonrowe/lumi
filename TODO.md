@@ -1,3 +1,2 @@
-- Send to endpoint from Node
 - Listen instead of poll from Dash
 - Auto start nodes on power on

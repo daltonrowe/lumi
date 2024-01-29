@@ -12,7 +12,11 @@ Deno.serve(async (req) => {
   const supabaseAdmin = createClient<Database>(SUPABASE_URL, SERVICE_ROLE_KEY);
 
   try {
-    const { code, team, cardId } = await req.json();
+    let { code, team, cardId } = await req.json();
+
+    code = code.toUpperCase();
+    team = team.toUpperCase();
+    cardId = cardId.toUpperCase();
 
     const { data: selectData, error: selectError } = await supabaseAdmin
       .from("nodes_v1")
