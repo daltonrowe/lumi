@@ -1,3 +1,5 @@
+import { JSONEditor } from "../vendor/standalone.js";
+
 const ANON_KEY = localStorage.getItem("anon_key");
 const API_HOST = localStorage.getItem("api_host");
 
@@ -36,13 +38,14 @@ listGamesButton.addEventListener("click", async () => {
     data.forEach((row) => {
       const item = document.createElement("LABEL");
       item.dataset.id = row.id;
+      item.dataset.config = JSON.stringify(row.config ?? {});
 
       const itemInput = document.createElement("INPUT");
       itemInput.type = "radio";
       itemInput.name = "game-list";
 
       const itemSpan = document.createElement("SPAN");
-      itemSpan.textContent = `${row.name} - ${row.desc}`;
+      itemSpan.textContent = `#${row.id} - ${row.name} - ${row.desc}`;
 
       item.appendChild(itemInput);
       item.appendChild(itemSpan);
@@ -111,4 +114,43 @@ assignNodesButton.addEventListener("click", async () => {
   if (!error) {
     console.log("Nodes updated!");
   }
+});
+
+// Manage Configs
+
+const getConfigButton = document.querySelector("#get-config");
+const setConfigButton = document.querySelector("#set-config");
+const jsonEditorRoot = document.querySelector("#json-editor");
+
+const editor = new JSONEditor({
+  target: jsonEditorRoot,
+  props: {
+    content: {
+      json: {},
+    },
+  },
+});
+
+getConfigButton.addEventListener("click", () => {
+  const gameInput = document.querySelector("#games-list input:checked");
+  if (!gameInput) return;
+
+  const gameConfig = JSON.parse(gameInput.parentElement.dataset.config);
+  editor.set({ json: gameConfig });
+});
+
+setConfigButton.addEventListener("click", async () => {
+  const gameInput = document.querySelector("#games-list input:checked");
+  if (!gameInput) return;
+
+  const { json } = editor.get();
+
+  const gameId = JSON.parse(gameInput.parentElement.dataset.id);
+
+  const { data, error } = await supabase
+    .from("games_v1")
+    .update({ config: json })
+    .eq("id", gameId);
+
+  console.log(data, error);
 });

@@ -5,37 +5,24 @@ const { createClient } = window.supabase;
 
 const supabase = createClient(API_HOST, ANON_KEY);
 
-const mapPre = document.querySelector("#map");
+const configPre = document.querySelector("#config");
 const logPre = document.querySelector("#log");
 
 const state = {
   scans: [],
 };
 
-const map = {
-  zones: {
-    PIZZATIME: "NY",
-    KFC: "KY",
-    OHYEAH: "TX",
-    TREE: "CA",
-  },
-  teams: {
-    A: "blue",
-    B: "red",
-    C: "purple",
-    D: "yellow",
-  },
-};
+let config = {};
 
 function updateDash() {
   const { scans } = state;
 
-  mapPre.textContent = JSON.stringify(map, null, 2);
+  configPre.textContent = JSON.stringify(config, null, 2);
   logPre.textContent = JSON.stringify(scans, null, 2);
 
   scans.forEach((scan) => {
-    const color = map.teams[scan.team];
-    const zone = map.zones[scan.node_code];
+    const color = config.teams[scan.team];
+    const zone = config.zones[scan.node_code];
     const el = document.querySelector(`#${zone}`);
     el.style.fill = color;
   });
@@ -84,8 +71,18 @@ function startGameListener(gameId) {
     .subscribe();
 }
 
-document.querySelector("#test").addEventListener("click", () => {
+async function pullConfig(gameId) {
+  const { data, error } = await supabase
+    .from("games_v1")
+    .select()
+    .eq("id", gameId);
+
+  if (!error) config = data[0].config ?? {};
+}
+
+document.querySelector("#test").addEventListener("click", async () => {
   const GAME_ID_INPUT = document.querySelector("#gameId").value;
-  startGameDash(GAME_ID_INPUT);
+  await pullConfig(GAME_ID_INPUT);
+  await startGameDash(GAME_ID_INPUT);
   startGameListener(GAME_ID_INPUT);
 });

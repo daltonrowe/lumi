@@ -13,6 +13,8 @@
       <button id="create-game-submit">Create Game</button>
     </div>
 
+    <hr />
+
     <button id="list-games">List Games</button>
     <button id="list-nodes">List Nodes</button>
     <div class="flex">
@@ -22,7 +24,14 @@
 
     <button id="assign-nodes">Assign Nodes to Game</button>
 
+    <hr />
+
+    <div id="json-editor"></div>
+
+    <button id="get-config">Edit Config</button>
+    <button id="set-config">Overwrite Config</button>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./manage_games.js"></script>
+    <script type="module" src="./manage_games.js"></script>
   </body>
 </html>
