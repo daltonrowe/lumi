@@ -1,2 +1,1 @@
-- Listen instead of poll from Dash
 - Auto start nodes on power on
