@@ -5,6 +5,8 @@ async function testFunction() {
   const CODE_INPUT = document.querySelector("#code").value;
   const READ_DATA_INPUT = document.querySelector("#readData").value;
 
+  const [team, cardId] = READ_DATA_INPUT.split("-");
+
   const response = await fetch(`${API_HOST}/functions/v1/card_scan`, {
     method: "POST",
     headers: {
@@ -14,7 +16,8 @@ async function testFunction() {
     },
     body: JSON.stringify({
       code: CODE_INPUT,
-      readData: READ_DATA_INPUT,
+      team,
+      cardId,
     }),
   });
 

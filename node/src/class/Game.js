@@ -1,3 +1,5 @@
+const { sendScan } = require("../util/sendScan");
+
 const { getProvider } = require("./Provider");
 const { checkValidScan } = require("../util/checkValidScan");
 
@@ -52,6 +54,7 @@ class Game {
       return;
     }
 
+    // scan is a team change, do cool lights and send to db
     this.handleNewTeam(scan);
   }
 
@@ -68,6 +71,7 @@ class Game {
   handleNewTeam(scan) {
     console.log("New Team:", scan.team, scan.cardId);
     this.lights.setTeamColor(scan.team);
+    sendScan(scan);
   }
 
   acknowledgeFirstScan() {

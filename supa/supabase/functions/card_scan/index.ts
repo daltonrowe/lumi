@@ -12,12 +12,7 @@ Deno.serve(async (req) => {
   const supabaseAdmin = createClient<Database>(SUPABASE_URL, SERVICE_ROLE_KEY);
 
   try {
-    const { code, readData } = await req.json();
-
-    if (typeof readData !== "string") throw new Error("Card ID not valid");
-    if (readData.indexOf("-") !== 1) throw new Error("Card ID not valid");
-
-    const [team, cardId] = readData.split("-");
+    const { code, team, cardId } = await req.json();
 
     const { data: selectData, error: selectError } = await supabaseAdmin
       .from("nodes_v1")

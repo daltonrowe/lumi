@@ -16,8 +16,8 @@ const map = {
     tree: "CA",
   },
   teams: {
-    A: "red",
-    B: "blue",
+    A: "blue",
+    B: "red",
     C: "purple",
     D: "yellow",
   },
