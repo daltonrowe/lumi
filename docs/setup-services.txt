@@ -1,6 +1,6 @@
 # create service
 
-sudo nano /lib/systemd/system/<service_name>.service
+sudo nano /lib/systemd/system/lumi.service
 
 # reload
 
@@ -8,8 +8,12 @@ sudo systemctl daemon-reload
 
 # start service
 
-sudo systemctl start lumi-lights
+sudo systemctl start lumi
 
 # enable at boot
 
-sudo systemctl enable lumi-lights
+sudo systemctl enable lumi
+
+# view logs for service
+
+journalctl -u lumi.service

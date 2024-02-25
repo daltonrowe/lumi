@@ -1,1 +1,0 @@
-- Auto start nodes on power on

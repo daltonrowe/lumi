@@ -1,10 +1,11 @@
 [Unit]
-Description=Lumi Endurance Run
+Description=Lumi Zone Game
 Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/node /usr/local/lumi/src/index.js
+EnvironmentFile=-/usr/local/lumi/node/.env
+ExecStart=/usr/local/bin/node /usr/local/lumi/node/src/index.js
 Restart=always
 RestartSec=10
 

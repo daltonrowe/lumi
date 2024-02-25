@@ -1,0 +1,24 @@
+# install node
+# install-node.txt
+
+# copy lumi
+sudo mkdir /usr/local/lumi
+
+# copy node folder to local user via sftp
+# using panic transmit
+
+# copy local install to /usr/local
+sudo cp -a ~/node /usr/local/lumi
+
+# install npm packages
+cd /usr/local/lumi/node
+npm install
+
+# update node .env 
+# set NODE_CODE
+
+# test install
+sudo node src/index.js
+
+# install service
+# setup-services.txt
