@@ -4,7 +4,7 @@ DROP FUNCTION view_game_v1(bigint);
 CREATE FUNCTION view_game_v1(game_id bigint)
   RETURNS TABLE (
     id bigint, 
-    team text, 
+    team teams, 
     card_id text,
     node_code varchar,
     created_at timestamptz
