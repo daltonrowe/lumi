@@ -1,11 +1,19 @@
+# flash rpi os
+# debian bullseye
+
 # install node
 # install-node.txt
 
-# copy lumi
-sudo mkdir /usr/local/lumi
+# disable audio
+sudo nano /boot/config.txt
+# comment out dtparam=audio=on
+
 
 # copy node folder to local user via sftp
 # using panic transmit
+
+# copy lumi
+sudo mkdir /usr/local/lumi
 
 # copy local install to /usr/local
 sudo cp -a ~/node /usr/local/lumi
