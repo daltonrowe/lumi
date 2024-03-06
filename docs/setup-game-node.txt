@@ -8,6 +8,8 @@
 sudo nano /boot/config.txt
 # comment out dtparam=audio=on
 
+# reboot
+sudo reboot -h
 
 # copy node folder to local user via sftp
 # using panic transmit
@@ -23,6 +25,7 @@ cd /usr/local/lumi/node
 npm install
 
 # update node .env 
+nano .env
 # set NODE_CODE
 
 # test install

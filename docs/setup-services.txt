@@ -6,13 +6,13 @@ sudo nano /lib/systemd/system/lumi.service
 
 sudo systemctl daemon-reload
 
-# start service
-
-sudo systemctl start lumi
-
 # enable at boot
 
 sudo systemctl enable lumi
+
+# start service
+
+sudo systemctl start lumi
 
 # view logs for service
 
