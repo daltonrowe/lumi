@@ -1,0 +1,23 @@
+-- get leaders for a current game
+
+DROP FUNCTION get_leaders_v1(bigint);
+CREATE OR REPLACE FUNCTION get_leaders_v1(game_id bigint)
+  RETURNS TABLE (
+    card_id text,
+    count bigint
+  )
+  LANGUAGE plpgsql AS $$
+BEGIN
+  RETURN QUERY
+  SELECT
+    scans_v1.card_id,
+    COUNT(*) AS num
+  FROM
+    scans_v1
+  WHERE
+    game = game_id
+  GROUP BY
+    scans_v1.card_id
+  ORDER BY
+    num DESC;
+END; $$;

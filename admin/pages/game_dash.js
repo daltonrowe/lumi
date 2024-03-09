@@ -10,6 +10,7 @@ const logPre = document.querySelector("#log");
 
 const state = {
   scans: [],
+  leaders: [],
 };
 
 let config = {};
@@ -33,10 +34,18 @@ async function startGameDash(gameId) {
     game_id: gameId,
   });
 
-  if (!error) {
-    state.scans = data;
-    updateDash();
-  }
+  if (!error) state.scans = data;
+
+  const { data: leadersData, error: leadersError } = await supabase.rpc(
+    "get_leaders_v1",
+    {
+      game_id: gameId,
+    }
+  );
+
+  if (!leadersError) state.leaders = leadersData;
+
+  updateDash();
 }
 
 function handleScanUpdate(payload) {
