@@ -7,6 +7,7 @@ const supabase = createClient(API_HOST, ANON_KEY);
 
 const configPre = document.querySelector("#config");
 const logPre = document.querySelector("#log");
+const leadersPre = document.querySelector("#leaders");
 
 const state = {
   scans: [],
@@ -16,7 +17,7 @@ const state = {
 let config = {};
 
 function updateDash() {
-  const { scans } = state;
+  const { scans, leaders } = state;
 
   configPre.textContent = JSON.stringify(config, null, 2);
   logPre.textContent = JSON.stringify(scans, null, 2);
@@ -27,6 +28,18 @@ function updateDash() {
     const el = document.querySelector(`#${zone}`);
     el.style.fill = color;
   });
+
+  const leadersMarkup = document.createElement("DIV");
+
+  leaders.forEach((leader) => {
+    const leaderDiv = document.createElement("DIV");
+    leaderDiv.textContent = `${leader.card_id}: ${leader.count}\n`;
+    leaderDiv.dataset.card_id = leader.card_id;
+
+    leadersMarkup.appendChild(leaderDiv);
+  });
+
+  leadersPre.innerHTML = leadersMarkup.innerHTML;
 }
 
 async function startGameDash(gameId) {
@@ -48,6 +61,10 @@ async function startGameDash(gameId) {
   updateDash();
 }
 
+function sortLeaders() {
+  state.leaders.sort((a, b) => b.count - a.count);
+}
+
 function handleScanUpdate(payload) {
   if (payload.errors) return;
 
@@ -61,6 +78,16 @@ function handleScanUpdate(payload) {
   }
 
   state.scans.unshift(newScan);
+
+  const leaderEntry = state.leaders.find(
+    (leader) => leader.card_id === newScan.card_id
+  );
+
+  if (leaderEntry) {
+    leaderEntry.count += 1;
+    sortLeaders();
+  }
+
   updateDash();
 }
 

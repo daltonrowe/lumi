@@ -27,3 +27,56 @@ label {
 .ma {
   margin: 0 auto;
 }
+
+:root {
+  --background: white;
+  --foreground: black;
+}
+
+:root .dark {
+  --background: black;
+  --foreground: white;
+}
+
+.dark {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.relative {
+  position: relative;
+}
+
+.abs-right {
+  position: absolute;
+  top: 0;
+  right: 2em;
+}
+
+#leaders {
+  text-align: right;
+  font-size: 24px;
+  line-height: 2em;
+}
+
+.anti-burn-in {
+  transform: scale(1);
+  animation: anti-burn-in 30s infinite;
+}
+
+@keyframes anti-burn-in {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
