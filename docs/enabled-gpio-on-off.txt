@@ -1,0 +1,12 @@
+sudo nano /boot/config.txt
+dtoverlay=gpio-shutdown
+
+Add normally open switch to Pins 5 & 6
+
+o o
+o o
+x x
+o o
+o o
+
+...
