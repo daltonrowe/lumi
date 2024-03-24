@@ -10,3 +10,9 @@ o o
 o o
 
 ...
+
+
+----
+
+# more options available
+dtoverlay=gpio-shutdown,gpio_pin=[GPIO Number, NOT Pin Number],active_low=1,gpio_pull=up,debounce=3000
